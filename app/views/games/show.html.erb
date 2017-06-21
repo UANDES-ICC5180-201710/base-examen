@@ -1,34 +1,35 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @game.title %>
-</p>
+<div class="row">
+  <div class="col-sm-8">
+    <h1>
+      <%= @game.title %>
+    </h1>
 
-<p>
-  <strong>Description:</strong>
-  <%= @game.description %>
-</p>
+    <p>
+      <strong>Description:</strong>
+      <%= @game.description %>
+    </p>
 
-<p>
-  <strong>Image url:</strong>
-  <img src="<%= @game.image_url %>">
-</p>
+    <%= link_to 'Edit', edit_game_path(@game) %> |
+    <%= link_to 'Back', games_path %>
 
-<%= link_to 'Edit', edit_game_path(@game) %> |
-<%= link_to 'Back', games_path %>
-
-<% if user_signed_in? %>
-  <% purchase = current_user.purchases.where(game: @game).first %>
-  <% if purchase %>
-    <button class="btn btn-success btn-purchase" data-purchase-id="<%= purchase.id %>" data-game-id="<%= @game.id %>">
-      Return
-    </button>
-  <% else %>
-    <button class="btn btn-primary btn-purchase" data-game-id="<%= @game.id %>">
-      Buy
-    </button>
-  <% end %>
-<% else %>
-  Debes hacer <%= link_to('Login', new_user_session_path) %> para comprar 
-<% end %>
+    <% if user_signed_in? %>
+      <% purchase = current_user.purchases.where(game: @game).first %>
+      <% if purchase %>
+        <button class="btn btn-success btn-purchase" data-purchase-id="<%= purchase.id %>" data-game-id="<%= @game.id %>">
+          Return
+        </button>
+      <% else %>
+        <button class="btn btn-primary btn-purchase" data-game-id="<%= @game.id %>">
+          Buy
+        </button>
+      <% end %>
+    <% else %>
+      Debes hacer <%= link_to('Login', new_user_session_path) %> para comprar 
+    <% end %>
+  </div>
+  <div class="col-sm-4">
+    <img class="game-image" src="<%= @game.image_url %>">
+  </div>
+</div>
