@@ -5,6 +5,10 @@ class GamesController < ApplicationController
   # GET /games.json
   def index
     @games = Game.all
+
+    if params[:title]
+      @games = @games.where("lower(title) like ?", "%#{params[:title]}%")
+    end
   end
 
   # GET /games/1
