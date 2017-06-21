@@ -12,7 +12,9 @@
 
 <p>
   <strong>Is staff:</strong>
-  <%= @user.is_staff %> <%= link_to 'Change', staff_user_path, class: 'btn btn-primary' %>
+  <% if current_user.is_staff %>
+    <%= @user.is_staff %> <%= link_to 'Change', staff_user_path, class: 'btn btn-primary' %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

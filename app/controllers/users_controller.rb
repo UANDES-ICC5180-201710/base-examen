@@ -23,15 +23,19 @@ class UsersController < ApplicationController
 
   # GET /users/1/staff
   def staff
-    @user.is_staff = !@user.is_staff
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    if current_user.is_staff
+      @user.is_staff = !@user.is_staff
+      respond_to do |format|
+        if @user.save
+          format.html { redirect_to @user, notice: 'User was successfully updated.' }
+          format.json { render :show, status: :created, location: @user }
+        else
+          format.html { render :edit }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to @user
     end
   end
 
@@ -83,6 +87,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :is_staff)
+      params.require(:user).permit(:first_name, :last_name)
     end
 end
