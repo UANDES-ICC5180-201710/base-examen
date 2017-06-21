@@ -9,6 +9,13 @@
   </head>
 
   <body>
+    <% unless notice.nil? %>
+      <div class="alert alert-success notice"><%= notice %></div>
+    <% end %>
+    <% unless alert.nil? %>
+      <div class="alert alert-warning"><%= alert %></div>
+    <% end %>
+    <%= render 'layouts/navbar' %>
     <%= yield %>
   </body>
 </html>
