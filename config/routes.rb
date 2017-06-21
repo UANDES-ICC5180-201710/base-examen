@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :purchases
   devise_for :users
   resources :users do
-    get 'staff', to: 'users#staff', on: :member
+    post 'staff', to: 'users#staff', on: :member
   end
 
   authenticate :user do
