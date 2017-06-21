@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :staff]
 
   # GET /users
   # GET /users.json
@@ -19,6 +19,20 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+  end
+
+  # GET /users/1/staff
+  def staff
+    @user.is_staff = !@user.is_staff
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { render :show, status: :created, location: @user }
+      else
+        format.html { render :edit }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # POST /users
